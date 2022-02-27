@@ -1,0 +1,61 @@
+{
+  "name": "crypto-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5000",
+  "dependencies": {
+    "@carbon/charts-react": "^0.54.12",
+    "@carbon/icons-react": "^10.22.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.4",
+    "carbon-components": "^10.25.0",
+    "carbon-components-react": "^7.25.0",
+    "carbon-icons": "^7.0.7",
+    "chart.js": "^3.5.1",
+    "cors": "^2.8.5",
+    "d3": "^7.3.0",
+    "dotenv": "^16.0.0",
+    "firebase": "^9.6.6",
+    "moment": "^2.29.1",
+    "react": "^17.0.2",
+    "react-alice-carousel": "^2.5.1",
+    "react-chartjs-2": "^3.3.0",
+    "react-dom": "^17.0.2",
+    "react-google-button": "^0.7.2",
+    "react-html-parser": "^2.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "sass": "^1.49.8"
+  }
+}
