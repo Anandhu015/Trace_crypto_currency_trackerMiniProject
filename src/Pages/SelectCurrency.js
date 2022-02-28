@@ -49,7 +49,9 @@ const SelectCurrency = () => {
 
        
     }
-    
+    const today=new Date()
+    let tomorrow=new Date()
+    tomorrow.setDate(today.getDate()+1)
     const data1 = {
       datasets: [
         {
@@ -83,8 +85,13 @@ const SelectCurrency = () => {
       />)}predict</Button>
       
     </Form>
+    
+      
+    
     <div className={classes.container}>
+    {prediction.length!==0 ?<h3>{coin} prediction days Starting day from {moment(tomorrow).format("DD/MM/YYYY")}</h3>:" "}
      {prediction.length === 0 ?" ": <Line data={data1}  />}
+     
     </div>
     
    

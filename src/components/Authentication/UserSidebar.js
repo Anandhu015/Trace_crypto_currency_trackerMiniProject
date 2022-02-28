@@ -60,11 +60,11 @@ export default function UserSidebar() {
 
     right: false,
   });
-  const {user,setAlert,watchlist,coins}=CryptoState();
+  const {user,setAlert,watchlist}=CryptoState();
   
  
   console.log("watchlist",watchlist)
-  console.log(coins)
+  
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -74,6 +74,7 @@ export default function UserSidebar() {
     setState({ ...state, [anchor]: open });
 
   };
+  
   const logout=()=>{
     signOut(auth);
     setAlert({
@@ -123,10 +124,8 @@ export default function UserSidebar() {
                         <span style={{fontSize:15,textShadow:"0 0 5px black"}}>
                             Watchlist
                         </span>
-                        <div>
+                        {watchlist+" "}
                       
-                          </div>
-      
                 
                       
                     </div>

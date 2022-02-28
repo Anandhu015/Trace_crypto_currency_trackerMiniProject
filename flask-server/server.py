@@ -23,7 +23,7 @@ from pandas import concat
 from pandas import read_csv
 
 import tensorflow as tf # add to requirements
-
+from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import datetime # add to requirements
 import pandas_datareader.data as web # add to requirements
@@ -49,6 +49,8 @@ def predict():
 
         df = web.DataReader(stock_name, 'yahoo', start, end)
         last_date = df.index[-1]
+        scaler=MinMaxScaler(feature_range=(0,1))
+        scaled_data=scaler.fit_transform(df['Close'].values.reshape(-1,1))
 
         day_list = []
         
@@ -58,9 +60,7 @@ def predict():
 
 
 
-        data = df['Adj Close']
         #read time series dataset assume only one column = "univariate"
-        dataset = data
 
 
         n_input = 5
@@ -74,11 +74,10 @@ def predict():
         n_out = num_step
 
         data = df['Adj Close'].values
-        data1=df['Adj Close'].tail(30)
+    
 
-
-        def series_to_supervised(data, n_in, n_out=1):
-            df = DataFrame(data)
+        def series_to_supervised(scaled_data, n_in, n_out=1):
+            df = DataFrame(scaled_data)
             cols = list()
             # input sequence (t-n, ... t-1)
             for i in range(n_in, 0, -1):
@@ -94,7 +93,7 @@ def predict():
 
 
 
-        prepared_data = series_to_supervised(data, n_in, n_out)
+        prepared_data = series_to_supervised(scaled_data, n_in, n_out)
         train_x, train_y = prepared_data[:, :-num_step], prepared_data[:, -num_step:]
         X_train, X_test = train_x[:-n_test,:], train_x[-n_test:,:]
         y_train, y_test = train_y[:-n_test], train_y[-n_test:]
@@ -109,11 +108,8 @@ def predict():
         model.compile(loss='mse', optimizer='adam')
         # fit model
         model.fit(X_train, y_train, epochs=n_epochs, batch_size=n_batch, verbose=0)
-        my_predictions = model.predict(X_test)
-        starting_year = str(day_list[0].year)
-        starting_month = str(day_list[0].month)
-        starting_day = str(day_list[0].day)
-        first_day = starting_day+'-'+starting_month+'-'+'-'+starting_year
+        pred= model.predict(X_test)
+        my_predictions=scaler.inverse_transform(pred)
         
         graph = pygal.Line(x_label_rotation=20)
         graph.title = '5-Day Prediction'
